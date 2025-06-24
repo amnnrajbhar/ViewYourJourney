@@ -1,27 +1,52 @@
-# DateCalculatorApp
+# Date Calculator App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.9.
+A simple Angular application to calculate the number of days between two dates. This app provides a user-friendly interface to input two dates and instantly see the difference in days.
 
-## Development server
+## Features
+- Select two dates and calculate the number of days between them
+- Responsive and clean UI
+- Built with Angular
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Project Structure
+- `src/app/` - Main application source code
+  - `day-calculator/` - Contains the day calculator component
+- `src/assets/` - Static assets
+- `src/environments/` - Environment configuration
+- `e2e/` - End-to-end tests
 
-## Code scaffolding
+## Scripts
+- `ng serve` - Run the app in development mode
+- `ng build` - Build the app for production
+- `ng test` - Run unit tests
+- `ng e2e` - Run end-to-end tests
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation Guide
 
-## Build
+1. **Clone the repository**
+   ```cmd
+   git clone <repository-url>
+   cd date-calculator-app
+   ```
+2. **Install dependencies**
+   ```cmd
+   npm install
+   ```
+3. **Run the application**
+   ```cmd
+   npm start
+   ```
+   The app will be available at `http://localhost:4200/`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+4. **Build for production**
+   ```cmd
+   npm run build
+   ```
 
-## Running unit tests
+5. **Run tests**
+   ```cmd
+   npm test
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+For more information, see the Angular CLI documentation: https://angular.io/cli
