@@ -24,7 +24,7 @@ A simple Angular application to calculate the number of days between two dates. 
 
 1. **Clone the repository**
    ```cmd
-   git clone <repository-url>
+   git clone https://github.com/amnnrajbhar/ViewYourJourney.git
    cd date-calculator-app
    ```
 2. **Install dependencies**
