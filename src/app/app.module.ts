@@ -13,7 +13,9 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { AppComponent } from './app.component';
 import { DayCalculatorComponent } from './day-calculator/day-calculator.component';
 import { CommonModule } from '@angular/common';
-
+// import { ChartsModule } from 'angular-chart.js';
+// const ChartsModule = require('angular-chart.js');
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import { CommonModule } from '@angular/common';
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    ChartsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

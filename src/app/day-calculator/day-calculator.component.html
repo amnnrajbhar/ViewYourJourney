@@ -4,7 +4,7 @@
       <!-- Header -->
       <div class="text-center mb-5">
         <h1 class="display-4 text-primary mb-3">
-          <i class="fas fa-calendar-alt me-3"></i>
+          <i class="fa fa-calendar"></i>
           Days on Earth Calculator
         </h1>
         <p class="lead text-muted">Discover how many precious days you've been on this beautiful planet</p>
@@ -12,17 +12,17 @@
 
       <!-- Main Calculator Card -->
       <div class="card shadow-lg border-0 mb-4">
-        <div class="card-header bg-gradient-primary text-white">
+        <div class="card-header bg-primary text-white">
           <h3 class="card-title mb-0">
-            <i class="fas fa-birthday-cake me-2"></i>
+            <i class="fa fa-birthday-cake"></i>
             Your Journey Calculator
           </h3>
         </div>
         <div class="card-body p-4">
-          <form [formGroup]="calculatorForm" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label fw-bold">
-                <i class="fas fa-calendar me-2 text-primary"></i>
+          <form [formGroup]="calculatorForm" class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label font-weight-bold">
+                <i class="fa fa-calendar text-primary"></i>
                 Birth Date
               </label>
               <input 
@@ -33,9 +33,9 @@
                 [bsConfig]="bsConfig"
                 formControlName="birthDate">
             </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold">
-                <i class="fas fa-clock me-2 text-primary"></i>
+            <div class="col-md-6 mb-3">
+              <label class="form-label font-weight-bold">
+                <i class="fa fa-clock-o text-primary"></i>
                 Birth Time
               </label>
               <timepicker 
@@ -50,9 +50,9 @@
 
       <!-- Results Display -->
       <div *ngIf="result" class="card shadow-lg border-0 mb-4 animate-fade-in">
-        <div class="card-header bg-gradient-success text-white">
+        <div class="card-header bg-success text-white">
           <h3 class="card-title mb-0">
-            <i class="fas fa-chart-line me-2"></i>
+            <i class="fa fa-line-chart"></i>
             Your Life Statistics
           </h3>
         </div>
@@ -88,21 +88,109 @@
             <h5 class="alert-heading">{{ getMotivationalMessage() }}</h5>
             <p class="mb-0">You've experienced <strong>{{ result.daysOnEarth | number }}</strong> sunrises and sunsets!</p>
           </div>
+
+          <!-- Chart Button -->
+          <div class="text-center mt-4">
+            <button 
+              type="button" 
+              class="btn btn-primary btn-lg"
+              (click)="toggleChart()">
+              <i class="fa fa-bar-chart"></i>
+              {{ showChart ? 'Hide Chart' : 'Show Chart' }}
+            </button>
+          </div>
+
+          <!-- Chart Section -->
+          <div *ngIf="showChart" class="mt-4 animate-fade-in">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light">
+                <h5 class="card-title mb-0">
+                  <i class="fa fa-pie-chart text-primary"></i>
+                  Life Statistics Visualization
+                </h5>
+              </div>
+              <div class="card-body">
+                <!-- Years Bar Chart -->
+                <div class="chart-container mb-4">
+                  <h6 class="text-center mb-3">Years Breakdown</h6>
+                  <div class="chart-wrapper" style="position: relative; height: 400px; width: 100%;">
+                    <canvas 
+                      baseChart
+                      [datasets]="yearsBarChartDatasets"
+                      [labels]="yearsBarChartLabels"
+                      [options]="yearsBarChartOptions"
+                      [colors]="yearsBarChartColors"
+                      chartType="bar"
+                      style="display: block; width: 100%; height: 100%;">
+                    </canvas>
+                  </div>
+                </div>
+
+                <!-- Main Stats Bar Chart -->
+                <div class="chart-container mb-4">
+                  <h6 class="text-center mb-3">Life Statistics Overview</h6>
+                  <div class="chart-wrapper" style="position: relative; height: 350px; width: 100%;">
+                    <canvas 
+                      baseChart
+                      [datasets]="[{data: barChartData, label: 'Life Stats', backgroundColor: ['#007bff', '#28a745', '#ffc107', '#17a2b8']}]"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [colors]="barChartColors"
+                      chartType="bar"
+                      style="display: block; width: 100%; height: 100%;">
+                    </canvas>
+                  </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="chart-container mb-4">
+                  <h6 class="text-center mb-3">Time Distribution</h6>
+                  <div class="chart-wrapper" style="position: relative; height: 350px; width: 100%;">
+                    <canvas 
+                      baseChart
+                      [data]="pieChartData"
+                      [labels]="pieChartLabels"
+                      [options]="pieChartOptions"
+                      [colors]="pieChartColors"
+                      chartType="pie"
+                      style="display: block; width: 100%; height: 100%;">
+                    </canvas>
+                  </div>
+                </div>
+
+                <!-- Doughnut Chart -->
+                <div class="chart-container">
+                  <h6 class="text-center mb-3">Life Phases (Doughnut View)</h6>
+                  <div class="chart-wrapper" style="position: relative; height: 350px; width: 100%;">
+                    <canvas 
+                      baseChart
+                      [data]="doughnutChartData"
+                      [labels]="doughnutChartLabels"
+                      [options]="doughnutChartOptions"
+                      [colors]="doughnutChartColors"
+                      chartType="doughnut"
+                      style="display: block; width: 100%; height: 100%;">
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Date Range Calculator -->
       <div class="card shadow-lg border-0 mb-4">
-        <div class="card-header bg-gradient-info text-white">
+        <div class="card-header bg-info text-white">
           <h3 class="card-title mb-0">
-            <i class="fas fa-arrows-alt-h me-2"></i>
+            <i class="fa fa-arrows-h"></i>
             Date Range Calculator
           </h3>
         </div>
         <div class="card-body p-4">
-          <form [formGroup]="rangeForm" class="row g-3">
-            <div class="col-md-3">
-              <label class="form-label fw-bold">From Date</label>
+          <form [formGroup]="rangeForm" class="row">
+            <div class="col-md-3 mb-3">
+              <label class="form-label font-weight-bold">From Date</label>
               <input 
                 type="text" 
                 class="form-control"
@@ -111,15 +199,15 @@
                 [bsConfig]="bsConfig"
                 formControlName="fromDate">
             </div>
-            <div class="col-md-3">
-              <label class="form-label fw-bold">From Time</label>
+            <div class="col-md-3 mb-3">
+              <label class="form-label font-weight-bold">From Time</label>
               <timepicker 
                 formControlName="fromTime"
                 [showMeridian]="true">
               </timepicker>
             </div>
-            <div class="col-md-3">
-              <label class="form-label fw-bold">To Date</label>
+            <div class="col-md-3 mb-3">
+              <label class="form-label font-weight-bold">To Date</label>
               <input 
                 type="text" 
                 class="form-control"
@@ -128,8 +216,8 @@
                 [bsConfig]="bsConfig"
                 formControlName="toDate">
             </div>
-            <div class="col-md-3">
-              <label class="form-label fw-bold">To Time</label>
+            <div class="col-md-3 mb-3">
+              <label class="form-label font-weight-bold">To Time</label>
               <timepicker 
                 formControlName="toTime"
                 [showMeridian]="true">
@@ -138,46 +226,102 @@
           </form>
 
           <div *ngIf="result?.dateRange" class="row text-center mt-4">
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
               <div class="range-stat">
                 <div class="range-number text-primary">{{ result.dateRange.total }}</div>
                 <div class="range-label">Total</div>
               </div>
             </div>
-             <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-3">
               <div class="range-stat">
                 <div class="range-number text-primary">{{ result.dateRange.years | number}}</div>
                 <div class="range-label">Years</div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-3">
               <div class="range-stat">
                 <div class="range-number text-primary">{{ result.dateRange.months | number }}</div>
-                <div class="range-label">Month</div>
+                <div class="range-label">Months</div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-3">
               <div class="range-stat">
                 <div class="range-number text-primary">{{ result.dateRange.weeks | number }}</div>
-                <div class="range-label">Week</div>
+                <div class="range-label">Weeks</div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-3">
               <div class="range-stat">
                 <div class="range-number text-primary">{{ result.dateRange.days | number }}</div>
                 <div class="range-label">Days</div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-3">
               <div class="range-stat">
                 <div class="range-number text-success">{{ result.dateRange.hours | number }}</div>
                 <div class="range-label">Hours</div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-3">
               <div class="range-stat">
                 <div class="range-number text-warning">{{ result.dateRange.minutes | number }}</div>
                 <div class="range-label">Minutes</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Range Chart Button -->
+          <div *ngIf="result?.dateRange" class="text-center mt-4">
+            <button 
+              type="button" 
+              class="btn btn-info btn-lg"
+              (click)="toggleRangeChart()">
+              <i class="fa fa-line-chart"></i>
+              {{ showRangeChart ? 'Hide Range Chart' : 'Show Range Chart' }}
+            </button>
+          </div>
+
+          <!-- Range Chart Section -->
+          <div *ngIf="showRangeChart && result?.dateRange" class="mt-4 animate-fade-in">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light">
+                <h5 class="card-title mb-0">
+                  <i class="fa fa-area-chart text-info"></i>
+                  Date Range Visualization
+                </h5>
+              </div>
+              <div class="card-body">
+                <!-- Line Chart -->
+                <div class="chart-container mb-4">
+                  <h6 class="text-center mb-3">Range Statistics Timeline</h6>
+                  <div class="chart-wrapper" style="position: relative; height: 350px; width: 100%;">
+                    <canvas 
+                      baseChart
+                      [datasets]="lineChartDatasets"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [colors]="lineChartColors"
+                      chartType="line"
+                      style="display: block; width: 100%; height: 100%;">
+                    </canvas>
+                  </div>
+                </div>
+
+                <!-- Radar Chart -->
+                <div class="chart-container">
+                  <h6 class="text-center mb-3">Multi-dimensional Range View</h6>
+                  <div class="chart-wrapper" style="position: relative; height: 400px; width: 100%;">
+                    <canvas 
+                      baseChart
+                      [datasets]="radarChartDatasets"
+                      [labels]="radarChartLabels"
+                      [options]="radarChartOptions"
+                      [colors]="radarChartColors"
+                      chartType="radar"
+                      style="display: block; width: 100%; height: 100%;">
+                    </canvas>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -188,9 +332,9 @@
       <div class="text-center">
         <button 
           type="button" 
-          class="btn btn-outline-secondary btn-lg me-3"
+          class="btn btn-outline-secondary btn-lg"
           (click)="resetCalculations()">
-          <i class="fas fa-refresh me-2"></i>
+          <i class="fa fa-refresh"></i>
           Reset All
         </button>
       </div>
